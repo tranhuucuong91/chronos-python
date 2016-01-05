@@ -25,7 +25,11 @@
 import httplib2
 import json
 import logging
-from urllib import quote
+
+try:
+    from urllib.parse import quote
+except ImportError:
+    from urllib import quote
 
 
 class ChronosAPIError(Exception):
@@ -150,6 +154,9 @@ class ChronosClient(object):
             raise UnauthorizedError()
 
         if content:
+            if isinstance(content, bytes):
+                content = content.decode('utf-8')
+
             try:
                 payload = json.loads(content)
             except ValueError:
