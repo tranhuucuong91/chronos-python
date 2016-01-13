@@ -169,9 +169,9 @@ class ChronosClient(object):
         return payload
 
     def _check_fields(self, job):
-        for k in ChronosJob.fields:
-            if k not in job:
-                raise MissingFieldError("missing required field %s" % k)
+        # for k in ChronosJob.fields:
+        #     if k not in job:
+        #         raise MissingFieldError("missing required field %s" % k)
 
         if any(field in job for field in ChronosJob.one_of):
             if len([field for field in ChronosJob.one_of if field in job]) > 1:
